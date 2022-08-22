@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto.ui.main
+package ru.gb.daytime_foto.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.gb.daytime_foto.R
+import ru.gb.daytime_foto.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 

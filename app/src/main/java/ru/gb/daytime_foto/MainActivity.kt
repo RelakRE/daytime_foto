@@ -2,7 +2,7 @@ package ru.gb.daytime_foto
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ru.gb.daytime_foto.ui.main.MainFragment
+import ru.gb.daytime_foto.view.MainFragment
 
 class MainActivity : AppCompatActivity() {
 

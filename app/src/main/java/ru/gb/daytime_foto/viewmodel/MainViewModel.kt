@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto.ui.main
+package ru.gb.daytime_foto.viewmodel
 
 import androidx.lifecycle.ViewModel
 
