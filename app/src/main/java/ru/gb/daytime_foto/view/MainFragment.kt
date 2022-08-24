@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.gb.daytime_foto.R
-import ru.gb.daytime_foto.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
