@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto.model
+package ru.gb.daytime_photo.model
 
 import retrofit2.Call
 import retrofit2.http.GET

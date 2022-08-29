@@ -1,6 +1,6 @@
-package ru.gb.daytime_foto.viewmodel
+package ru.gb.daytime_photo.viewmodel
 
-import ru.gb.daytime_foto.model.PODServerResponseData
+import ru.gb.daytime_photo.model.PODServerResponseData
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) : PictureOfTheDayData()

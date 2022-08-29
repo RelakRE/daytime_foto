@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto.view
+package ru.gb.daytime_photo.view
 
 import android.content.Intent
 import android.net.Uri
@@ -7,15 +7,19 @@ import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import ru.gb.daytime_foto.R
-import ru.gb.daytime_foto.databinding.FragmentPictureOfTheDayBinding
-import ru.gb.daytime_foto.MainActivity
-import ru.gb.daytime_foto.view.chips.ChipsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import ru.gb.daytime_photo.MainActivity
+import ru.gb.daytime_photo.R
+import ru.gb.daytime_photo.databinding.FragmentPictureOfTheDayBinding
+import ru.gb.daytime_photo.viewmodel.PictureOfTheDayData
+import ru.gb.daytime_photo.viewmodel.PictureOfTheDayViewModel
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -24,7 +28,6 @@ class PictureOfTheDayFragment : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    //Ленивая инициализация модели
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
@@ -42,33 +45,56 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setBottomMenu(view)
+
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
-        setBottomAppBar(view)
+        setFab()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
+    private fun setBottomMenu(view: View) {
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> toast("Favourite")
-            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container, ChipsFragment.newInstance())
-                ?.addToBackStack(null)
-                ?.commit()
-            android.R.id.home -> {
-                activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+        val activity = requireActivity()
+        val menuHost: MenuHost = activity
+        val context = activity as MainActivity
+
+        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_bottom_bar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.app_bar_fav -> {
+                        toast("Favourite")
+                        return true
+                    }
+                    R.id.app_bar_settings -> {
+                        activity.supportFragmentManager.beginTransaction()
+                            .add(R.id.container, ChipsFragment.newInstance())
+                            .addToBackStack(null)
+                            .commit()
+                        return true
+                    }
+                    android.R.id.home -> {
+                        activity.let {
+                            BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                        }
+                        return true
+                    }
+                    else -> return false
                 }
             }
-        }
-        return super.onOptionsItemSelected(item)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -105,23 +131,31 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
-        setHasOptionsMenu(true)
+    private fun setFab() {
+        val context = requireActivity() as MainActivity
         binding.fab.setOnClickListener {
             if (isMain) {
                 isMain = false
                 binding.bottomAppBar.navigationIcon = null
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_back_fab
+                    )
+                )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
             } else {
                 isMain = true
                 binding.bottomAppBar.navigationIcon =
                     ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_plus_fab
+                    )
+                )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
             }
         }

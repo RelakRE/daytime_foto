@@ -1,10 +1,10 @@
-package ru.gb.daytime_foto
+package ru.gb.daytime_photo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
-import ru.gb.daytime_foto.databinding.ActivityMainBinding
-import ru.gb.daytime_foto.view.MainFragment
+import ru.gb.daytime_photo.databinding.ActivityMainBinding
+import ru.gb.daytime_photo.view.PictureOfTheDayFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,9 +14,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         if (savedInstanceState == null) {
             supportFragmentManager.commitNow {
-                replace(R.id.container, MainFragment.newInstance())
+                replace(R.id.container, PictureOfTheDayFragment.newInstance())
             }
         }
     }

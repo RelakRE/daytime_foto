@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto
+package ru.gb.daytime_photo
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

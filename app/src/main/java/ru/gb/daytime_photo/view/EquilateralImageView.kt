@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto.view
+package ru.gb.daytime_photo.view
 
 import android.content.Context
 import android.util.AttributeSet

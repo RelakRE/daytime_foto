@@ -1,4 +1,4 @@
-package ru.gb.daytime_foto
+package ru.gb.daytime_photo
 
 import org.junit.Test
 
