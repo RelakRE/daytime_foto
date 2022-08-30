@@ -122,6 +122,7 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Loading -> {
                 //Отобразите загрузку
                 //showLoading()
+                toast("Загрузка")
             }
             is PictureOfTheDayData.Error -> {
                 //Отобразите ошибку
