@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.gb.daytime_photo.MainActivity
 import ru.gb.daytime_photo.R
 import ru.gb.daytime_photo.databinding.FragmentPictureOfTheDayBinding
+import ru.gb.daytime_photo.model.PODServerResponseData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayViewModel
 
@@ -48,14 +49,17 @@ class PictureOfTheDayFragment : Fragment() {
 
         setBottomMenu(view)
 
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+//        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        setBottomSheetBehavior(binding.bottomSheetImageInfo.root)
+        setFab()
+
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
-        setFab()
+        binding.HDChips.setOnClickListener { toast("sfsdfsfsf") }
     }
 
     private fun setBottomMenu(view: View) {
@@ -101,23 +105,9 @@ class PictureOfTheDayFragment : Fragment() {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
-                if (url.isNullOrEmpty()) {
-                    //Отобразите ошибку
-                    //showError("Сообщение, что ссылка пустая")
-                    toast("Link is empty")
-                } else {
-                    //Отобразите фото
-                    //showSuccess()
-                    //Coil в работе: достаточно вызвать у нашего ImageView нужную extension-функцию и передать ссылку на изображение
-                    //а в лямбде указать дополнительные параметры (не обязательно) для отображения ошибки, процесса загрузки, анимации смены изображений
-                    binding.imageView.load(url) {
-                        lifecycle(this@PictureOfTheDayFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-                        crossfade(true)
-                    }
-                }
+                checkShowImageUrl(serverResponseData)
+                configInfoBox(serverResponseData)
+                configBottomSheetInfo(serverResponseData)
             }
             is PictureOfTheDayData.Loading -> {
                 //Отобразите загрузку
@@ -128,6 +118,36 @@ class PictureOfTheDayFragment : Fragment() {
                 //Отобразите ошибку
                 //showError(data.error.message)
                 toast(data.error.message)
+            }
+        }
+    }
+
+    private fun configBottomSheetInfo(serverResponseData: PODServerResponseData) {
+        binding.bottomSheetImageInfo.bottomSheetDescriptionHeader.text = serverResponseData.title
+        binding.bottomSheetImageInfo.bottomSheetDescription.text = serverResponseData.explanation
+    }
+
+    private fun configInfoBox(serverResponseData: PODServerResponseData) {
+        binding.titleImage.text = serverResponseData.title
+//        binding.secondaryTextImage.text = serverResponseData.explanation
+    }
+
+    private fun checkShowImageUrl(serverResponseData: PODServerResponseData) {
+        val url = serverResponseData.url
+        if (url.isNullOrEmpty()) {
+            //Отобразите ошибку
+            //showError("Сообщение, что ссылка пустая")
+            toast("Link is empty")
+        } else {
+            //Отобразите фото
+            //showSuccess()
+            //Coil в работе: достаточно вызвать у нашего ImageView нужную extension-функцию и передать ссылку на изображение
+            //а в лямбде указать дополнительные параметры (не обязательно) для отображения ошибки, процесса загрузки, анимации смены изображений
+            binding.imageView.load(url) {
+                lifecycle(this@PictureOfTheDayFragment)
+                error(R.drawable.ic_load_error_vector)
+                placeholder(R.drawable.ic_no_photo_vector)
+                crossfade(true)
             }
         }
     }
@@ -168,8 +188,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun Fragment.toast(string: String?) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.BOTTOM, 0, 250)
+        Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).apply {
             show()
         }
     }
