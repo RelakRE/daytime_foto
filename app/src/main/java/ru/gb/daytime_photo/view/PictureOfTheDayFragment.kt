@@ -59,7 +59,10 @@ class PictureOfTheDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
-        binding.HDChips.setOnClickListener { toast("sfsdfsfsf") }
+        binding.HDChips.setOnClickListener {
+            viewModel.getData()
+            .observe(viewLifecycleOwner) { renderData(it) }
+        }
     }
 
     private fun setBottomMenu(view: View) {
@@ -133,7 +136,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun checkShowImageUrl(serverResponseData: PODServerResponseData) {
-        val url = serverResponseData.url
+        val url = if (binding.HDChips.isChecked) serverResponseData.hdurl else serverResponseData.url
         if (url.isNullOrEmpty()) {
             //Отобразите ошибку
             //showError("Сообщение, что ссылка пустая")
