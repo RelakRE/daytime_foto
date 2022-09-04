@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import ru.gb.daytime_photo.databinding.FragmentChipsBinding
 import com.google.android.material.chip.Chip
 
-class ChipsFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
     private var _binding: FragmentChipsBinding? = null
     private val binding get() = _binding!!
@@ -45,6 +45,6 @@ class ChipsFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = ChipsFragment()
+        fun newInstance() = SettingsFragment()
     }
 }

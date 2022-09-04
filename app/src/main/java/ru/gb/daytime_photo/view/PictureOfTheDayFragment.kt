@@ -87,7 +87,7 @@ class PictureOfTheDayFragment : Fragment() {
                     }
                     R.id.app_bar_settings -> {
                         activity.supportFragmentManager.beginTransaction()
-                            .add(R.id.container, ChipsFragment.newInstance())
+                            .add(R.id.container, SettingsFragment.newInstance())
                             .addToBackStack(null)
                             .commit()
                         return true
