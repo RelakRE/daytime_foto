@@ -11,4 +11,7 @@
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
     <string name="error">Ошибка</string>
+    <string name="choose_theme">Выберите тему</string>
+    <string name="pink_theme">Розовая</string>
+    <string name="default_theme">Стандартная</string>
 </resources>

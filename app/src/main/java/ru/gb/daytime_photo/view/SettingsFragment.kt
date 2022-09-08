@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ru.gb.daytime_photo.databinding.SettingsFragmentBinding
 import com.google.android.material.chip.Chip
+import ru.gb.daytime_photo.App
+import ru.gb.daytime_photo.R
 
 class SettingsFragment : Fragment() {
 
@@ -24,9 +26,19 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
-            chipGroup.findViewById<Chip>(position)?.let {
-                Toast.makeText(context, "Выбран ${it.text}", Toast.LENGTH_SHORT).show()
+
+        when (App.appTheme){
+            R.style.PinkTheme -> binding.pinkTheme.isChecked = true
+            R.style.AppTheme -> binding.defaultTheme.isChecked = true
+        }
+
+        binding.chipGroupTheme.setOnCheckedStateChangeListener { chipGroup, position ->
+            chipGroup.findViewById<Chip>(position.first())?.let {
+                when (it.id){
+                    R.id.pink_theme -> App.appTheme = R.style.PinkTheme
+                    R.id.default_theme -> App.appTheme = R.style.AppTheme
+                }
+                requireActivity().recreate()
             }
         }
 

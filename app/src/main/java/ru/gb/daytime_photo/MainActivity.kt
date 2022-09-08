@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setTheme(App.appTheme)
+
         if (savedInstanceState == null) {
             supportFragmentManager.commitNow {
                 replace(R.id.container, PictureOfTheDayFragment.newInstance())
