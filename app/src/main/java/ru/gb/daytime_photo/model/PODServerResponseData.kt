@@ -10,4 +10,5 @@ data class PODServerResponseData(
     @field:SerializedName("title") val title: String?,
     @field:SerializedName("url") val url: String?,
     @field:SerializedName("hdurl") val hdurl: String?
+
 )

@@ -27,6 +27,8 @@ class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding get() = _binding!!
 
+    private var lastConditionDayChips = R.id.chips_today
+
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
@@ -48,10 +50,9 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setBottomMenu(view)
-
-//        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         setBottomSheetBehavior(binding.bottomSheetImageInfo.root)
         setFab()
+        bindChips()
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -59,10 +60,39 @@ class PictureOfTheDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
+    }
+
+    private fun bindChips() {
+
         binding.HDChips.setOnClickListener {
-            viewModel.getData()
-            .observe(viewLifecycleOwner) { renderData(it) }
+            fetchDate()
         }
+        binding.chipsToday.setOnClickListener {
+            if (lastConditionDayChips != binding.chipsToday.id){
+                viewModel.setDay(viewModel.TODAY_DATE)
+                fetchDate()
+                lastConditionDayChips = binding.chipsToday.id
+            }
+        }
+        binding.chipsYesterday.setOnClickListener {
+            if (lastConditionDayChips != binding.chipsYesterday.id){
+                viewModel.setDay(viewModel.YESTERDAY_DATE)
+                fetchDate()
+                lastConditionDayChips = binding.chipsYesterday.id
+            }
+        }
+        binding.chipsTomorrow.setOnClickListener {
+            if (lastConditionDayChips != binding.chipsTomorrow.id){
+                viewModel.setDay(viewModel.TOMORROW_DATE)
+                fetchDate()
+                lastConditionDayChips = binding.chipsTomorrow.id
+            }
+        }
+    }
+
+    private fun fetchDate(){
+        viewModel.getData()
+            .observe(viewLifecycleOwner) { renderData(it) }
     }
 
     private fun setBottomMenu(view: View) {
@@ -121,6 +151,14 @@ class PictureOfTheDayFragment : Fragment() {
                 //Отобразите ошибку
                 //showError(data.error.message)
                 toast(data.error.message)
+                binding.titleImage.text = getText(R.string.error)
+                binding.secondaryTextImage.text = data.error.message
+                binding.imageView.load(R.drawable.ic_load_error_vector) {
+                    lifecycle(this@PictureOfTheDayFragment)
+                    error(R.drawable.ic_load_error_vector)
+                    placeholder(R.drawable.ic_no_photo_vector)
+                    crossfade(true)
+                }
             }
         }
     }
@@ -132,7 +170,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun configInfoBox(serverResponseData: PODServerResponseData) {
         binding.titleImage.text = serverResponseData.title
-//        binding.secondaryTextImage.text = serverResponseData.explanation
+        binding.secondaryTextImage.text = serverResponseData.explanation
     }
 
     private fun checkShowImageUrl(serverResponseData: PODServerResponseData) {

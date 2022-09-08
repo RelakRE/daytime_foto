@@ -7,4 +7,8 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="HD">HD</string>
+    <string name="yesterday">Вчера</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="error">Ошибка</string>
 </resources>

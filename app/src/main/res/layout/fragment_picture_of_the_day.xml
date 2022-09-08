@@ -39,20 +39,49 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipDayGroup"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout">
+                app:layout_constraintTop_toBottomOf="@+id/input_layout"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chips_yesterday"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yesterday" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:id="@+id/HD_chips"
+                    android:id="@+id/chips_today"
+                    android:checked="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/HD" />
-            </LinearLayout>
+                    android:text="@string/today" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:id="@+id/chips_tomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tomorrow" />
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/HD_chips"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/HD"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chipDayGroup" />
+
 
             <ru.gb.daytime_photo.view.EquilateralImageView
                 android:id="@+id/image_view"
@@ -61,11 +90,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout"
-                app:layout_constraintVertical_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_chips"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
 
             <com.google.android.material.card.MaterialCardView
@@ -104,6 +131,15 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_chips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="chipDayGroup,HD_chips"
+                tools:layout_editor_absoluteX="10dp"
+                tools:layout_editor_absoluteY="130dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -126,7 +162,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorAccent"
+        android:backgroundTint="?attr/colorPrimaryVariant"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
         app:tint="#FFFFFF" />
