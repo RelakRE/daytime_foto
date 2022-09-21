@@ -17,6 +17,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.gb.daytime_photo.MainActivity
 import ru.gb.daytime_photo.R
+import ru.gb.daytime_photo.ViewPagerActivity
 import ru.gb.daytime_photo.databinding.FragmentPictureOfTheDayBinding
 import ru.gb.daytime_photo.model.PODServerResponseData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayData
@@ -112,7 +113,8 @@ class PictureOfTheDayFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.app_bar_fav -> {
-                        toast("Favourite")
+
+                        activity?.let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
                         return true
                     }
                     R.id.app_bar_settings -> {
