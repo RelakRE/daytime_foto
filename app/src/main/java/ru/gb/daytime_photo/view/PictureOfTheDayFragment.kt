@@ -113,8 +113,7 @@ class PictureOfTheDayFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.app_bar_fav -> {
-
-                        activity?.let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
+                        requireActivity().let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
                         return true
                     }
                     R.id.app_bar_settings -> {

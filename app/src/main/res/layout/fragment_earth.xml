@@ -8,6 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@android:drawable/ic_menu_preferences"
+        app:srcCompat="@drawable/bg_earth"
         />
+
 </FrameLayout>

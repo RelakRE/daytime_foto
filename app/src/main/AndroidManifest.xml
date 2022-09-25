@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ru.gb.daytime_photo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,12 +25,9 @@
             </intent-filter>
         </activity>
         <activity
-        android:name="ru.gb.daytime_photo.ViewPagerActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-        </intent-filter>
-    </activity>
+            android:name="ru.gb.daytime_photo.ViewPagerActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
