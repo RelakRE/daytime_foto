@@ -1,6 +1,5 @@
 package ru.gb.daytime_photo
 
-import android.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.gb.daytime_photo.databinding.ActivityViewPagerBinding
@@ -16,14 +15,27 @@ class ViewPagerActivity : AppCompatActivity() {
         binding = ActivityViewPagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewPager =  binding.viewPager
+        val viewPager = binding.viewPager
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
         binding.indicator.setViewPager(viewPager)
+        configTabLayout()
 
+    }
 
-// optional
-//        adapter.registerDataSetObserver(indicator.dataSetObserver)
+    private fun configTabLayout() {
+        binding.apply {
+            tabLayout.setupWithViewPager(viewPager)
+            tabLayout.getTabAt(EARTH)?.setIcon(R.drawable.ic_earth)
+            tabLayout.getTabAt(MARS)?.setIcon(R.drawable.ic_mars)
+            tabLayout.getTabAt(WEATHER)?.setIcon(R.drawable.ic_system)
+        }
+    }
+
+    companion object {
+        private const val EARTH = 0
+        private const val MARS = 1
+        private const val WEATHER = 2
     }
 
 }
