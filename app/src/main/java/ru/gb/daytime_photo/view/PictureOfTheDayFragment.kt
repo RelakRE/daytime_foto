@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import ru.gb.daytime_photo.BottomNavigationActivity
 import ru.gb.daytime_photo.MainActivity
 import ru.gb.daytime_photo.R
 import ru.gb.daytime_photo.ViewPagerActivity
@@ -113,7 +114,12 @@ class PictureOfTheDayFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.app_bar_fav -> {
-                        requireActivity().let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
+                        startActivity(
+                            Intent(
+                                requireActivity(),
+                                ViewPagerActivity::class.java
+                            )
+                        )
                         return true
                     }
                     R.id.app_bar_settings -> {
@@ -127,6 +133,15 @@ class PictureOfTheDayFragment : Fragment() {
                         activity.let {
                             BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
                         }
+                        return true
+                    }
+                    R.id.app_bar_bottom_navigation -> {
+                        startActivity(
+                            Intent(
+                                requireActivity(),
+                                BottomNavigationActivity::class.java
+                            )
+                        )
                         return true
                     }
                     else -> return false

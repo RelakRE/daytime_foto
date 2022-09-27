@@ -2,8 +2,9 @@ package ru.gb.daytime_photo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.tabs.TabLayoutMediator
 import ru.gb.daytime_photo.databinding.ActivityViewPagerBinding
-import ru.gb.daytime_photo.view.view_pager_fragments.ViewPagerAdapter
 
 
 class ViewPagerActivity : AppCompatActivity() {
@@ -15,21 +16,46 @@ class ViewPagerActivity : AppCompatActivity() {
         binding = ActivityViewPagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewPager = binding.viewPager
-
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
-        binding.indicator.setViewPager(viewPager)
-        configTabLayout()
+//        binding.viewPager.adapter = ViewPagerAdapter(this)
+//        setTabs()
 
     }
 
-    private fun configTabLayout() {
-        binding.apply {
-            tabLayout.setupWithViewPager(viewPager)
-            tabLayout.getTabAt(EARTH)?.setIcon(R.drawable.ic_earth)
-            tabLayout.getTabAt(MARS)?.setIcon(R.drawable.ic_mars)
-            tabLayout.getTabAt(WEATHER)?.setIcon(R.drawable.ic_system)
-        }
+    private fun setTabs() {
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                EARTH -> getString(R.string.earth_tab_text)
+                MARS -> getString(R.string.mars_tab_text)
+                WEATHER -> getString(R.string.weather_tab_text)
+                else -> getString(R.string.earth_tab_text)
+            }
+            tab.icon = when (position) {
+                EARTH -> {
+                    ContextCompat.getDrawable(
+                        this@ViewPagerActivity,
+                        R.drawable.ic_earth
+                    )
+                }
+                MARS -> {
+                    ContextCompat.getDrawable(
+                        this@ViewPagerActivity,
+                        R.drawable.ic_mars
+                    )
+                }
+                WEATHER -> {
+                    ContextCompat.getDrawable(
+                        this@ViewPagerActivity,
+                        R.drawable.ic_system
+                    )
+                }
+                else -> {
+                    ContextCompat.getDrawable(
+                        this@ViewPagerActivity,
+                        R.drawable.ic_earth
+                    )
+                }
+            }
+        }.attach()
     }
 
     companion object {

@@ -14,4 +14,7 @@
     <string name="choose_theme">Выберите тему</string>
     <string name="pink_theme">Розовая</string>
     <string name="default_theme">Стандартная</string>
+    <string name="earth_tab_text">EARTH</string>
+    <string name="mars_tab_text">MARS</string>
+    <string name="weather_tab_text">WEATHER</string>
 </resources>
