@@ -1,8 +1,6 @@
 package ru.gb.daytime_photo
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.gb.daytime_photo.databinding.ActivityBottomNavigationViewBinding
 import ru.gb.daytime_photo.view.view_pager_fragments.EarthFragment
@@ -18,6 +16,10 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         binding = ActivityBottomNavigationViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.bottomNavigationView.getOrCreateBadge(R.id.bottom_view_earth)
+        val badge = binding.bottomNavigationView.getBadge(R.id.bottom_view_earth)
+        badge?.number = 2
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {

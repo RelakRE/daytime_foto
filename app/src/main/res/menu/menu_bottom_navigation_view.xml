@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/bottom_view_earth"
         android:icon="@drawable/ic_earth"
-        android:title="Earth" />
+        android:title="@string/earth_tab_text"
+        app:tooltipText="Tooltip text"/>
     <item
         android:id="@+id/bottom_view_mars"
         android:icon="@drawable/ic_mars"
-        android:title="Mars" />
+        android:title="@string/mars_tab_text" />
     <item
         android:id="@+id/bottom_view_weather"
         android:icon="@drawable/ic_system"
-        android:title="Weather" />
+        android:title="@string/earth_tab_text" />
 </menu>
