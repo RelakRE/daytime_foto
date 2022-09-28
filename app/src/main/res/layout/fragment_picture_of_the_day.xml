@@ -65,10 +65,10 @@
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:id="@+id/chips_tomorrow"
+                    android:id="@+id/chips_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tomorrow" />
+                    android:text="@string/date_chips" />
             </com.google.android.material.chip.ChipGroup>
 
 

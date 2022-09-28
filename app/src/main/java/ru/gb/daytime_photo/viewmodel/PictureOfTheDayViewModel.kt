@@ -10,6 +10,7 @@ import retrofit2.Response
 import ru.gb.daytime_photo.BuildConfig
 import ru.gb.daytime_photo.model.PODRetrofitImpl
 import ru.gb.daytime_photo.model.PODServerResponseData
+import ru.gb.daytime_photo.model.PODServerResponseErrorData
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -19,30 +20,33 @@ class PictureOfTheDayViewModel(
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
 
+    var dateOnDateChips: LocalDate? = null
     val TODAY_DATE = 0
     val YESTERDAY_DATE = -1
     val TOMORROW_DATE = 1
 
-    private var selectedDay: Int = TODAY_DATE
+    private var selectedDay: LocalDate = LocalDate.now()
 
     fun getData(): LiveData<PictureOfTheDayData> {
         sendServerRequest(getRequestDate())
         return liveDataForViewToObserve
     }
 
+    fun setDay(date: LocalDate){
+        selectedDay = date
+    }
+
     fun setDay(day: Int) {
-        if (day == TODAY_DATE || day == YESTERDAY_DATE || day == TOMORROW_DATE) {
-            selectedDay = day
+        selectedDay = when(day){
+            TODAY_DATE -> LocalDate.now()
+            YESTERDAY_DATE -> LocalDate.now().minusDays(1)
+            TOMORROW_DATE -> LocalDate.now().plusDays(1)
+            else -> LocalDate.now()
         }
     }
 
     private fun getRequestDate(): LocalDate {
-        return when (selectedDay) {
-            0 -> LocalDate.now()
-            1 -> LocalDate.now().plusDays(1)
-            -1 -> LocalDate.now().minusDays(1)
-            else -> LocalDate.now()
-        }
+        return selectedDay
     }
 
     private fun sendServerRequest(date: LocalDate = LocalDate.now()) {

@@ -7,6 +7,8 @@ import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.datepicker.MaterialDatePicker
 import ru.gb.daytime_photo.BottomNavigationActivity
 import ru.gb.daytime_photo.MainActivity
 import ru.gb.daytime_photo.R
@@ -23,6 +26,8 @@ import ru.gb.daytime_photo.databinding.FragmentPictureOfTheDayBinding
 import ru.gb.daytime_photo.model.PODServerResponseData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayViewModel
+import java.time.Instant
+import java.time.ZoneId
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -83,14 +88,37 @@ class PictureOfTheDayFragment : Fragment() {
                 lastConditionDayChips = binding.chipsYesterday.id
             }
         }
-        binding.chipsTomorrow.setOnClickListener {
-            if (lastConditionDayChips != binding.chipsTomorrow.id) {
-                viewModel.setDay(viewModel.TOMORROW_DATE)
+        binding.chipsDate.setOnClickListener {
+            if (lastConditionDayChips != binding.chipsDate.id) {
+                if (viewModel.dateOnDateChips == null) {
+                    showDatePicker()
+                } else {
+                    viewModel.setDay(viewModel.dateOnDateChips!!)
+                    lastConditionDayChips = binding.chipsYesterday.id
+                }
                 fetchDate()
-                lastConditionDayChips = binding.chipsTomorrow.id
             }
         }
+        binding.chipsDate.setOnLongClickListener {
+                showDatePicker()
+        }
     }
+
+    private fun showDatePicker(): Boolean {
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Выберите дату")
+                .build()
+
+        datePicker.show(requireActivity().supportFragmentManager, "tag")
+        datePicker.addOnPositiveButtonClickListener {
+            viewModel.dateOnDateChips =
+                Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate();
+            binding.chipsDate.text = datePicker.headerText
+        }
+        return true
+    }
+
 
     private fun fetchDate() {
         viewModel.getData()

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.gb.daytime_photo.databinding.ActivityViewPagerBinding
+import ru.gb.daytime_photo.view.view_pager_fragments.ViewPagerAdapter
 
 
 class ViewPagerActivity : AppCompatActivity() {
@@ -16,8 +17,8 @@ class ViewPagerActivity : AppCompatActivity() {
         binding = ActivityViewPagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.viewPager.adapter = ViewPagerAdapter(this)
-//        setTabs()
+        binding.viewPager.adapter = ViewPagerAdapter(this)
+        setTabs()
 
     }
 
