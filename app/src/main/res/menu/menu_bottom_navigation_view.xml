@@ -5,7 +5,7 @@
         android:id="@+id/bottom_view_earth"
         android:icon="@drawable/ic_earth"
         android:title="@string/earth_tab_text"
-        app:tooltipText="Tooltip text"/>
+        app:tooltipText="Tooltip text" />
     <item
         android:id="@+id/bottom_view_mars"
         android:icon="@drawable/ic_mars"

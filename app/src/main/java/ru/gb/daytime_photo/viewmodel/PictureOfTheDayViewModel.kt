@@ -8,16 +8,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.gb.daytime_photo.BuildConfig
-import ru.gb.daytime_photo.model.PODRetrofitImpl
-import ru.gb.daytime_photo.model.PODServerResponseData
-import ru.gb.daytime_photo.model.PODServerResponseErrorData
+import ru.gb.daytime_photo.model.retrofits.nasa_apod.PODNasaAPOD
+import ru.gb.daytime_photo.model.retrofits.nasa_apod.PODRetrofitImpl
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
 class PictureOfTheDayViewModel(
     private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
-    private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
 
     var dateOnDateChips: LocalDate? = null
@@ -32,12 +30,12 @@ class PictureOfTheDayViewModel(
         return liveDataForViewToObserve
     }
 
-    fun setDay(date: LocalDate){
+    fun setDay(date: LocalDate) {
         selectedDay = date
     }
 
     fun setDay(day: Int) {
-        selectedDay = when(day){
+        selectedDay = when (day) {
             TODAY_DATE -> LocalDate.now()
             YESTERDAY_DATE -> LocalDate.now().minusDays(1)
             TOMORROW_DATE -> LocalDate.now().plusDays(1)
@@ -56,15 +54,15 @@ class PictureOfTheDayViewModel(
         if (apiKey.isBlank()) {
             PictureOfTheDayData.Error(Throwable("You need API key"))
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey, dateSimple).enqueue(object :
-                Callback<PODServerResponseData> {
+            PODRetrofitImpl.getAPI().getPictureOfTheDay(dateSimple).enqueue(object :
+                Callback<PODNasaAPOD> {
                 override fun onResponse(
-                    call: Call<PODServerResponseData>,
-                    response: Response<PODServerResponseData>
+                    call: Call<PODNasaAPOD>,
+                    response: Response<PODNasaAPOD>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         liveDataForViewToObserve.value =
-                            PictureOfTheDayData.Success(response.body()!!)
+                            PictureOfTheDayData.SuccessDayPhoto(response.body()!!)
                     } else {
 
                         val message = response.message()
@@ -84,7 +82,7 @@ class PictureOfTheDayViewModel(
                     }
                 }
 
-                override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
+                override fun onFailure(call: Call<PODNasaAPOD>, t: Throwable) {
                     liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
                 }
             })

@@ -1,8 +1,8 @@
-package ru.gb.daytime_photo.model
+package ru.gb.daytime_photo.model.retrofits.nasa_apod
 
 import com.google.gson.annotations.SerializedName
 
-data class PODServerResponseData(
+data class PODNasaAPOD(
     @field:SerializedName("copyright") val copyright: String?,
     @field:SerializedName("date") val date: String?,
     @field:SerializedName("explanation") val explanation: String?,
@@ -10,5 +10,4 @@ data class PODServerResponseData(
     @field:SerializedName("title") val title: String?,
     @field:SerializedName("url") val url: String?,
     @field:SerializedName("hdurl") val hdurl: String?
-
 )

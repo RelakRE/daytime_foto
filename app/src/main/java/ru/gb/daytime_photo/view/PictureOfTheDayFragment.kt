@@ -7,8 +7,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -23,7 +21,7 @@ import ru.gb.daytime_photo.MainActivity
 import ru.gb.daytime_photo.R
 import ru.gb.daytime_photo.ViewPagerActivity
 import ru.gb.daytime_photo.databinding.FragmentPictureOfTheDayBinding
-import ru.gb.daytime_photo.model.PODServerResponseData
+import ru.gb.daytime_photo.model.retrofits.nasa_apod.PODNasaAPOD
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayViewModel
 import java.time.Instant
@@ -100,7 +98,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
         }
         binding.chipsDate.setOnLongClickListener {
-                showDatePicker()
+            showDatePicker()
         }
     }
 
@@ -180,7 +178,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
-            is PictureOfTheDayData.Success -> {
+            is PictureOfTheDayData.SuccessDayPhoto -> {
                 val serverResponseData = data.serverResponseData
                 checkShowImageUrl(serverResponseData)
                 configInfoBox(serverResponseData)
@@ -209,17 +207,17 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun configBottomSheetInfo(serverResponseData: PODServerResponseData) {
+    private fun configBottomSheetInfo(serverResponseData: PODNasaAPOD) {
         binding.bottomSheetImageInfo.bottomSheetDescriptionHeader.text = serverResponseData.title
         binding.bottomSheetImageInfo.bottomSheetDescription.text = serverResponseData.explanation
     }
 
-    private fun configInfoBox(serverResponseData: PODServerResponseData) {
+    private fun configInfoBox(serverResponseData: PODNasaAPOD) {
         binding.titleImage.text = serverResponseData.title
         binding.secondaryTextImage.text = serverResponseData.explanation
     }
 
-    private fun checkShowImageUrl(serverResponseData: PODServerResponseData) {
+    private fun checkShowImageUrl(serverResponseData: PODNasaAPOD) {
         val url =
             if (binding.HDChips.isChecked) serverResponseData.hdurl else serverResponseData.url
         if (url.isNullOrEmpty()) {
