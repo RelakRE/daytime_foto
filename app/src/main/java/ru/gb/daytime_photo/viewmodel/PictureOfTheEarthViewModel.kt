@@ -57,7 +57,7 @@ class PictureOfTheEarthViewModel(
 
     private fun getPhotoUrl(MetadataItem: PODEpicMetadataItem): String {
 
-        var url = ""
+        var url: String
         val simpleDateString = MetadataItem.date
         val image = MetadataItem.image
 
@@ -70,8 +70,8 @@ class PictureOfTheEarthViewModel(
         GregorianCalendar().apply {
             time = dateLastPhoto
             url = resourceUrl.replace("{year}", this[Calendar.YEAR].toString())
-            url = url.replace("{month}", (this[Calendar.MONTH] + 1).toString())
-            url = url.replace("{day}", (this[Calendar.DAY_OF_MONTH]).toString())
+            url = url.replace("{month}", String.format("%02d", this[Calendar.MONTH] + 1))
+            url = url.replace("{day}", String.format("%02d", this[Calendar.DAY_OF_MONTH]))
             url = url.replace("{image}", image)
             url = url.replace("{api}", BuildConfig.NASA_API_KEY)
         }
