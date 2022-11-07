@@ -17,13 +17,4 @@ interface PictureOfTheDayAPI {
     @GET("EPIC/api/natural?api_key=${BuildConfig.NASA_API_KEY}")
     fun getLastPhotoMeta(): Call<PODEpicMetadata>
 
-    //https://api.nasa.gov/EPIC/archive/natural/2019/05/30/png/epic_1b_20190530011359.png?api_key=DEMO_KEY
-    @GET("/EPIC/archive/natural/{year}/{month}/{day}/jpg/{image}.jpg?api_key=${BuildConfig.NASA_API_KEY}")
-    fun getPhoto(
-        @Path("year") year: Int,
-        @Path("month") month: Int,
-        @Path("day") day: Int,
-        @Path("image") image: String
-    ): Call<PODEpicMetadata>
-
 }

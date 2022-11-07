@@ -1,4 +1,4 @@
-package ru.gb.daytime_photo.model
+package ru.gb.daytime_photo.model.retrofits.nasa_apod
 
 import com.google.gson.annotations.SerializedName
 

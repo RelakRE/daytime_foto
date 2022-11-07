@@ -28,6 +28,8 @@ android {
         properties.load(project.rootProject.file("app.properties").newDataInputStream())
         def nasaApiKey = properties.getProperty("NASA_API_KEY", "")
         it.buildConfigField "String", "NASA_API_KEY", nasaApiKey
+        def youtubeKey = properties.getProperty("YOUTUBE_KEY", "")
+        it.buildConfigField "String", "YOUTUBE_KEY", youtubeKey
     }
 
     compileOptions {
@@ -70,6 +72,7 @@ dependencies {
 
     //Coil image download
     implementation 'io.coil-kt:coil:1.4.0'
+    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
 
     //Test
     testImplementation 'junit:junit:4.13.2'
