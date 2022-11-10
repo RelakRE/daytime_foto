@@ -2,7 +2,6 @@ package ru.gb.daytime_photo.model.retrofits.nasa_apod
 
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.gb.daytime_photo.BuildConfig
 

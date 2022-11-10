@@ -82,6 +82,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chipDayGroup" />
 
+            <FrameLayout
+                android:id="@+id/YouTubePlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_chips" />
 
             <ru.gb.daytime_photo.view.EquilateralImageView
                 android:id="@+id/image_view"
@@ -91,10 +97,11 @@
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/photo_of_the_day_stub"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.473"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/barrier_chips"
-                app:srcCompat="@drawable/ic_no_photo_vector" />
+                app:srcCompat="@drawable/ic_no_photo_vector"
+                android:visibility="invisible" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"

@@ -16,16 +16,14 @@ import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.datepicker.MaterialDatePicker
-import ru.gb.daytime_photo.BottomNavigationActivity
-import ru.gb.daytime_photo.MainActivity
-import ru.gb.daytime_photo.R
-import ru.gb.daytime_photo.ViewPagerActivity
+import ru.gb.daytime_photo.*
 import ru.gb.daytime_photo.databinding.FragmentPictureOfTheDayBinding
 import ru.gb.daytime_photo.model.retrofits.nasa_apod.PODNasaAPOD
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayData
 import ru.gb.daytime_photo.viewmodel.PictureOfTheDayViewModel
 import java.time.Instant
 import java.time.ZoneId
+
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -58,6 +56,14 @@ class PictureOfTheDayFragment : Fragment() {
         setBottomSheetBehavior(binding.bottomSheetImageInfo.root)
         setFab()
         bindChips()
+
+        val youTubeFragment = YouTubeFragment()
+        childFragmentManager.beginTransaction().apply {
+            replace(R.id.YouTubePlayer, youTubeFragment)
+            commit()
+        }
+
+        youTubeFragment.initialize(BuildConfig.YOUTUBE_KEY, youTubeFragment)
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {

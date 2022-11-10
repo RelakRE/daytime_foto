@@ -50,7 +50,7 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
 
     //Core
-    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.core:core-ktx:1.8.0'
 
     //ktx
@@ -72,7 +72,9 @@ dependencies {
 
     //Coil image download
     implementation 'io.coil-kt:coil:1.4.0'
-    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
+
+    //YouTubeAndroidPlayerApi
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     //Test
     testImplementation 'junit:junit:4.13.2'
