@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -56,14 +57,6 @@ class PictureOfTheDayFragment : Fragment() {
         setBottomSheetBehavior(binding.bottomSheetImageInfo.root)
         setFab()
         bindChips()
-
-        val youTubeFragment = YouTubeFragment()
-        childFragmentManager.beginTransaction().apply {
-            replace(R.id.YouTubePlayer, youTubeFragment)
-            commit()
-        }
-
-        youTubeFragment.initialize(BuildConfig.YOUTUBE_KEY, youTubeFragment)
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -185,10 +178,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
             is PictureOfTheDayData.SuccessDayPhoto -> {
-                val serverResponseData = data.serverResponseData
-                checkShowImageUrl(serverResponseData)
-                configInfoBox(serverResponseData)
-                configBottomSheetInfo(serverResponseData)
+                renderImageOrVideo(data)
             }
             is PictureOfTheDayData.Loading -> {
                 //Отобразите загрузку
@@ -198,6 +188,36 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Error -> {
                 //Отобразите ошибку
                 showError(data)
+            }
+        }
+    }
+
+    private fun renderImageOrVideo(data: PictureOfTheDayData.SuccessDayPhoto) {
+        when (data.serverResponseData.mediaType) {
+            ("image") -> {
+                binding.YouTubePlayer.isInvisible = true
+                binding.imageView.isInvisible = false
+
+                val serverResponseData = data.serverResponseData
+                checkShowImageUrl(serverResponseData)
+                configInfoBox(serverResponseData)
+                configBottomSheetInfo(serverResponseData)
+            }
+            ("video") -> {
+                binding.YouTubePlayer.isInvisible = false
+                binding.imageView.isInvisible = true
+
+                val youTubeFragment = YouTubeFragment()
+                youTubeFragment.url =
+                    youTubeFragment.getUrlId(data.serverResponseData.url as String)
+                childFragmentManager.beginTransaction().apply {
+                    replace(R.id.YouTubePlayer, youTubeFragment)
+                    commit()
+                }
+
+                youTubeFragment.initialize(BuildConfig.YOUTUBE_KEY, youTubeFragment)
+
+
             }
         }
     }
