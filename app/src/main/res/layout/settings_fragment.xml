@@ -222,9 +222,11 @@
                     android:id="@+id/raisedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Raised Button"
+                    app:layout_constraintEnd_toStartOf="@+id/unelevatedButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -233,10 +235,11 @@
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Unelevated Button"
-                    app:layout_constraintStart_toEndOf="@id/raisedButton"
+                    android:text="@string/unelevated_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/raisedButton"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
@@ -246,7 +249,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Outlined Button"
+                    android:text="@string/outlined_button"
+                    app:layout_constraintEnd_toStartOf="@+id/textButton"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/raisedButton" />
 
@@ -258,7 +264,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Text Button"
-                    app:layout_constraintStart_toEndOf="@id/outlinedButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/outlinedButton"
                     app:layout_constraintTop_toBottomOf="@id/raisedButton" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
