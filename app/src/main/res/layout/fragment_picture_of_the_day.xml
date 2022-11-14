@@ -83,9 +83,10 @@
                 app:layout_constraintTop_toTopOf="@+id/chipDayGroup" />
 
             <FrameLayout
-                android:id="@+id/YouTubePlayer"
+                android:id="@+id/you_tube_player"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/barrier_chips" />
 

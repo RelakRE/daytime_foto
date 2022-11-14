@@ -48,7 +48,7 @@ class PictureOfTheDayViewModel(
     }
 
     private fun sendServerRequest(date: LocalDate = LocalDate.now()) {
-        liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
+        liveDataForViewToObserve.postValue(PictureOfTheDayData.Loading(null))
         val apiKey: String = BuildConfig.NASA_API_KEY
         val dateSimple: String = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
         if (apiKey.isBlank()) {
@@ -61,8 +61,8 @@ class PictureOfTheDayViewModel(
                     response: Response<PODNasaAPOD>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        liveDataForViewToObserve.value =
-                            PictureOfTheDayData.SuccessDayPhoto(response.body()!!)
+                        liveDataForViewToObserve.postValue(
+                            PictureOfTheDayData.SuccessDayPhoto(response.body()!!))
                     } else {
 
                         val message = response.message()
@@ -73,17 +73,17 @@ class PictureOfTheDayViewModel(
                             } catch (e: Exception) {
                                 "Unidentified error"
                             }
-                            liveDataForViewToObserve.value =
-                                PictureOfTheDayData.Error(Throwable(textError))
+                            liveDataForViewToObserve.postValue(
+                                PictureOfTheDayData.Error(Throwable(textError)))
                         } else {
-                            liveDataForViewToObserve.value =
-                                PictureOfTheDayData.Error(Throwable(message))
+                            liveDataForViewToObserve.postValue(
+                                PictureOfTheDayData.Error(Throwable(message)))
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<PODNasaAPOD>, t: Throwable) {
-                    liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
+                    liveDataForViewToObserve.postValue(PictureOfTheDayData.Error(t))
                 }
             })
         }

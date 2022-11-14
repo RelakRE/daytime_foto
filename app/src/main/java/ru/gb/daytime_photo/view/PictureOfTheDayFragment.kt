@@ -11,6 +11,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -119,7 +120,6 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun fetchDate() {
         viewModel.getData()
-            .observe(viewLifecycleOwner) { renderData(it) }
     }
 
     private fun setBottomMenu(view: View) {
@@ -195,7 +195,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun renderImageOrVideo(data: PictureOfTheDayData.SuccessDayPhoto) {
         when (data.serverResponseData.mediaType) {
             ("image") -> {
-                binding.YouTubePlayer.isInvisible = true
+                binding.youTubePlayer.isInvisible = true
                 binding.imageView.isInvisible = false
 
                 val serverResponseData = data.serverResponseData
@@ -204,20 +204,18 @@ class PictureOfTheDayFragment : Fragment() {
                 configBottomSheetInfo(serverResponseData)
             }
             ("video") -> {
-                binding.YouTubePlayer.isInvisible = false
+                binding.youTubePlayer.isInvisible = false
                 binding.imageView.isInvisible = true
 
                 val youTubeFragment = YouTubeFragment()
                 youTubeFragment.url =
                     youTubeFragment.getUrlId(data.serverResponseData.url as String)
-                childFragmentManager.beginTransaction().apply {
-                    replace(R.id.YouTubePlayer, youTubeFragment)
-                    commit()
+
+                childFragmentManager.commit {
+                    replace(R.id.you_tube_player, youTubeFragment)
                 }
 
                 youTubeFragment.initialize(BuildConfig.YOUTUBE_KEY, youTubeFragment)
-
-
             }
         }
     }
