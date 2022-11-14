@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
 import ru.gb.daytime_photo.databinding.ActivityMainBinding
-import ru.gb.daytime_photo.view.PictureOfTheDayFragment
+import ru.gb.daytime_photo.view.CollapsingTollBarFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commitNow {
-                replace(R.id.container, PictureOfTheDayFragment.newInstance())
+//                replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                replace(R.id.container, CollapsingTollBarFragment())
             }
         }
     }
