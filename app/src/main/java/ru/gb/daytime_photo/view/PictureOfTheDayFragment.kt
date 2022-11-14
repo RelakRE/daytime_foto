@@ -193,31 +193,33 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderImageOrVideo(data: PictureOfTheDayData.SuccessDayPhoto) {
-        when (data.serverResponseData.mediaType) {
+        val serverResponseData = data.serverResponseData
+        when (serverResponseData.mediaType) {
             ("image") -> {
                 binding.youTubePlayer.isInvisible = true
                 binding.imageView.isInvisible = false
-
-                val serverResponseData = data.serverResponseData
                 checkShowImageUrl(serverResponseData)
-                configInfoBox(serverResponseData)
-                configBottomSheetInfo(serverResponseData)
             }
             ("video") -> {
                 binding.youTubePlayer.isInvisible = false
                 binding.imageView.isInvisible = true
-
-                val youTubeFragment = YouTubeFragment()
-                youTubeFragment.url =
-                    youTubeFragment.getUrlId(data.serverResponseData.url as String)
-
-                childFragmentManager.commit {
-                    replace(R.id.you_tube_player, youTubeFragment)
-                }
-
-                youTubeFragment.initialize(BuildConfig.YOUTUBE_KEY, youTubeFragment)
+                initializeVideo(serverResponseData)
             }
         }
+        configInfoBox(serverResponseData)
+        configBottomSheetInfo(serverResponseData)
+    }
+
+    private fun initializeVideo(serverResponseData: PODNasaAPOD) {
+        val youTubeFragment = viewModel.youTubeFragment?: YouTubeFragment()
+        youTubeFragment.url =
+            youTubeFragment.getUrlId(serverResponseData.url as String)
+
+        childFragmentManager.commit {
+            replace(R.id.you_tube_player, youTubeFragment)
+        }
+
+        youTubeFragment.initialize(BuildConfig.YOUTUBE_KEY, youTubeFragment)
     }
 
     private fun showError(data: PictureOfTheDayData.Error) {
