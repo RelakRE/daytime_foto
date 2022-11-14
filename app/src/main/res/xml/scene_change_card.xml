@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/endCard"
+        motion:constraintSetStart="@+id/startCard"
+        motion:duration="1000">
+        <OnClick motion:targetId="@+id/card" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/startCard">
+        <Constraint
+            android:id="@+id/card"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottomNavigation" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/endCard">
+        <Constraint
+            android:id="@+id/card"
+            android:layout_width="0dp"
+            android:layout_height="240dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottomNavigation" />
+    </ConstraintSet>
+
+</MotionScene>
