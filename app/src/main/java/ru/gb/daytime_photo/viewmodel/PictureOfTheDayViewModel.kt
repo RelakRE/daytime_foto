@@ -10,7 +10,7 @@ import retrofit2.Response
 import ru.gb.daytime_photo.BuildConfig
 import ru.gb.daytime_photo.model.retrofits.nasa_apod.PODNasaAPOD
 import ru.gb.daytime_photo.model.retrofits.nasa_apod.PODRetrofitImpl
-import ru.gb.daytime_photo.view.YouTubeFragment
+import ru.gb.daytime_photo.view.fragments.YouTubeFragment
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -25,7 +25,7 @@ class PictureOfTheDayViewModel(
     val TOMORROW_DATE = 1
 
     private var selectedDay: LocalDate = LocalDate.now()
-    var youTubeFragment:YouTubeFragment? = null
+    var youTubeFragment: YouTubeFragment? = null
 
     fun getData(): LiveData<PictureOfTheDayData> {
         sendServerRequest(getRequestDate())

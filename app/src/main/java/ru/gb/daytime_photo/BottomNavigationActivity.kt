@@ -3,9 +3,9 @@ package ru.gb.daytime_photo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.gb.daytime_photo.databinding.ActivityBottomNavigationViewBinding
-import ru.gb.daytime_photo.view.view_pager_fragments.EarthFragment
-import ru.gb.daytime_photo.view.view_pager_fragments.MarsFragment
-import ru.gb.daytime_photo.view.view_pager_fragments.WeatherFragment
+import ru.gb.daytime_photo.view.fragments.view_pager_fragments.EarthFragment
+import ru.gb.daytime_photo.view.fragments.view_pager_fragments.MarsFragment
+import ru.gb.daytime_photo.view.fragments.view_pager_fragments.WeatherFragment
 
 class BottomNavigationActivity : AppCompatActivity() {
 

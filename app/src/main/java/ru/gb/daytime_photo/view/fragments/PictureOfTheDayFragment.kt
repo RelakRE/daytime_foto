@@ -1,4 +1,4 @@
-package ru.gb.daytime_photo.view
+package ru.gb.daytime_photo.view.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -298,6 +298,7 @@ class PictureOfTheDayFragment : Fragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
+
 
     private fun Fragment.toast(string: String?) {
         Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).apply {

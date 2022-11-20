@@ -1,4 +1,4 @@
-package ru.gb.daytime_photo.view.view_pager_fragments
+package ru.gb.daytime_photo.view.fragments.view_pager_fragments
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

@@ -1,4 +1,4 @@
-package ru.gb.daytime_photo.view
+package ru.gb.daytime_photo.view.fragments
 
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer

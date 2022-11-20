@@ -9,5 +9,9 @@
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
             android:title="На экран 2" />
+        <item
+            android:id="@+id/transitions"
+            android:icon="@drawable/ic_baseline_transform_24"
+            android:title="@string/transitions"/>
     </group>
 </menu>

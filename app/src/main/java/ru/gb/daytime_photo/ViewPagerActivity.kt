@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.gb.daytime_photo.databinding.ActivityViewPagerBinding
-import ru.gb.daytime_photo.view.view_pager_fragments.ViewPagerAdapter
+import ru.gb.daytime_photo.view.fragments.view_pager_fragments.ViewPagerAdapter
 
 
 class ViewPagerActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package ru.gb.daytime_photo.view
+package ru.gb.daytime_photo.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
